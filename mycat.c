@@ -42,7 +42,7 @@ int main(int argc, char** argv){
 
         for(;;){
             if((read_bytes = read(STDIN, BUFF, STDIN_BUFF_SIZE)) == -1){
-                /* Se non riesco a leggere dallo standard input, esco dal programma riportanndo il messaggio di errore*/
+                /* Se non riesco a leggere dallo standard input, esco dal programma riportando il messaggio di errore*/
                 perror("Can't read thrue STDIN");
                 exit(EXIT_FAILURE);
             }
