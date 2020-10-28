@@ -1,12 +1,12 @@
 
-EXEC = cat
+EXEC = mycat
 CC = gcc
 CFLAGS = -Wall -pedantic -Werror
 DEBUGFLAGS = -g -fsanitize=address -fsanitize=undefined
 TESTFILES = test0 test1 test2 test3 test4
 all: $(EXEC)
 
-cat:  cat.c
+mycat:  mycat.c
 	$(CC) $(CFLAGS) $(DEBUGFLAGS) -o $@ $^
 
 test_files:
