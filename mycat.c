@@ -57,8 +57,13 @@ int main(int argc, char** argv){
 /**** Altrimenti leggo da FILE, nel caso di più parametri concateno il contenuto dei vari FILEs ****/
     else{
         /**** Firma dell'autore ****/
-        if((strcmp(argv[1],"mother_of_all_questions")) == 0){
-            goto mother_of_all_questions;
+        if((strcmp(argv[1],"--mother_of_all_questions")) == 0){
+            goto mother_of_all_questions_;
+        }
+
+        /**** Versione ****/
+        if((strcmp(argv[1], "--version")) == 0){
+            goto version_;
         }
 
         /**** Apro i vari FILEs dati come argomento e li concateno su standard output****/
@@ -72,6 +77,7 @@ int main(int argc, char** argv){
             if((file_fd = open(argv[i], O_RDONLY)) == -1){
                 /* Se non riesco ad aprire il FILE, esco dal programma riportanndo il messaggio di errore*/
                 perror(argv[i]);
+                free(BUFF);
                 close(file_fd);
                 exit(EXIT_FAILURE);
             }
@@ -79,6 +85,7 @@ read_:
             if((read_bytes = read(file_fd, (BUFF + total_bytes), (buff_size - total_bytes))) == -1){
                 /* Se non riesco a leggere da FILE, esco dal programma riportanndo il messaggio di errore*/
                 perror("Can't read thrue FD");
+                free(BUFF);
                 close(file_fd);
                 exit(EXIT_FAILURE);
             }
@@ -96,21 +103,29 @@ read_:
         if((write(STDOUT, BUFF, total_bytes)) == -1){
             /* Se non riesco a scrivere sullo standard output, esco dal programma riportando il messaggio di errore*/
             perror("Can't write to STDOUT");
+            free(BUFF);
             exit(EXIT_FAILURE);
         }
 
         free(BUFF);
     }
+    exit(EXIT_SUCCESS);
 
-exit(EXIT_SUCCESS);
-
-mother_of_all_questions:
+mother_of_all_questions_:
     if((write(STDOUT, "\n\tFoto Piedi?\n\n", 15)) == -1){
         /* Se non riesco a scrivere sullo standard output, esco dal programma riportando il messaggio di errore*/
         perror("Can't write to STDOUT");
         exit(EXIT_FAILURE);
     }
-exit(EXIT_SUCCESS);
+    exit(EXIT_SUCCESS);
+
+version_:
+    if((write(STDOUT, "\nMyCat 1.0\nThis is free software: fell free to change and redistribute it.\n\nWriten by Andrea S. Valenzano\n\n", 107)) == -1){
+        /* Se non riesco a scrivere sullo standard output, esco dal programma riportando il messaggio di errore */
+        perror("Can't write to STDOUT");
+        exit(EXIT_FAILURE);
+    }
+    exit(EXIT_SUCCESS);
 }
 
 

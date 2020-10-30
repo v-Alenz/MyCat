@@ -2,7 +2,7 @@
 EXEC = mycat
 CC = gcc
 CFLAGS = -Wall -pedantic -Werror -O3
-DEBUGFLAGS = -g -fsanitize=address -fsanitize=undefined
+DEBUGFLAGS = -ggdb -fsanitize=address -fsanitize=undefined
 TESTFILES = test0 test1 test2 test3 test4
 all: $(EXEC)
 
